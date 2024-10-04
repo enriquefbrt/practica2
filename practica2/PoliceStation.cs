@@ -9,14 +9,19 @@
             policeCars.Add(car);
         }
 
-        public void StartAlarm(string plate)
+        public void StartAlarm(string? plate)
         {
-            foreach (PoliceCar car in policeCars)
+            if (plate != null)
             {
-                if (car.IsPatrolling()) {
-                    car.ChaseInfractor(plate);
+                foreach (PoliceCar car in policeCars)
+                {
+                    if (car.IsPatrolling())
+                    {
+                        car.ChaseInfractor(plate);
+                    }
                 }
             }
+            else { Console.WriteLine("Can't alert police cars: the vehicle has no plate."); }
         }
     }
 }
