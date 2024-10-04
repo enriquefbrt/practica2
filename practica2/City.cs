@@ -5,7 +5,6 @@
         private PoliceStation policeStation = new PoliceStation();
         private List<Taxi> taxis = new List<Taxi>();
 
-
         public PoliceStation PoliceStation => policeStation;
 
         public PoliceCar AddPoliceCar(string plate, bool radar)
@@ -24,14 +23,17 @@
             return taxi;
         }
 
-        public void RemoveTaxiLicense(string plate)
+        public void RemoveTaxiLicense()
         {
-            for (int i = taxis.Count - 1; i >= 0; i--)
+            foreach (string infractor in policeStation.Infractors)
             {
-                if (taxis[i].GetPlate() == plate)
+                for (int i = taxis.Count - 1; i >= 0; i--)
                 {
-                    taxis.RemoveAt(i);
-                    Console.WriteLine($"License of taxi with plate {plate} was removed due to exceeding the speed limit.");
+                    if (taxis[i].GetPlate() == infractor)
+                    {
+                        taxis.RemoveAt(i);
+                        Console.WriteLine($"Removed Taxi license for Taxi with plate {infractor}.");
+                    }
                 }
             }
         }

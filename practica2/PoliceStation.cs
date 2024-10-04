@@ -3,6 +3,9 @@
     class PoliceStation
     {
         private List<PoliceCar> policeCars = new List<PoliceCar>();
+        private List<string> infractors = new List<string>();
+
+        public List<string> Infractors => infractors;
 
         public void AddPoliceCar(PoliceCar car)
         {
@@ -13,6 +16,7 @@
         {
             if (plate != null)
             {
+                infractors.Add(plate);
                 foreach (PoliceCar car in policeCars)
                 {
                     if (car.IsPatrolling())
