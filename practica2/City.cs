@@ -8,9 +8,9 @@
 
         public PoliceStation PoliceStation => policeStation;
 
-        public PoliceCar AddPoliceCar(string plate)
+        public PoliceCar AddPoliceCar(string plate, bool radar)
         {
-            PoliceCar policeCar = new PoliceCar(plate);
+            PoliceCar policeCar = new PoliceCar(plate, radar);
             Console.WriteLine(policeCar.WriteMessage("Created"));
             policeStation.AddPoliceCar(policeCar);
             return policeCar;

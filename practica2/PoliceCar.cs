@@ -5,31 +5,35 @@
         //constant string as TypeOfVehicle wont change allong PoliceCar instances
         private const string typeOfVehicle = "Police Car"; 
         private bool isPatrolling;
-        private SpeedRadar speedRadar;
+        private SpeedRadar? speedRadar;
         private string? infractor = null;
         private bool chasing = false;
 
-        public PoliceCar(string plate) : base(typeOfVehicle, plate)
+        public PoliceCar(string plate, bool radar) : base(typeOfVehicle, plate)
         {
             isPatrolling = false;
-            speedRadar = new SpeedRadar();
+            if (radar) { speedRadar = new SpeedRadar(); }
         }
 
         public void UseRadar(Vehicle vehicle, PoliceStation policeStation)
         {
-            if (isPatrolling)
+            if (speedRadar != null)
             {
-                bool infraction = false;
-                float speed = speedRadar.TriggerRadar(vehicle);
-                string meassurement = speedRadar.GetLastReading(ref infraction);
-                Console.WriteLine(WriteMessage($"Triggered radar. Result: {meassurement}"));
+                if (isPatrolling)
+                {
+                    bool infraction = false;
+                    float speed = speedRadar.TriggerRadar(vehicle);
+                    string meassurement = speedRadar.GetLastReading(ref infraction);
+                    Console.WriteLine(WriteMessage($"Triggered radar. Result: {meassurement}"));
 
-                if (infraction) { policeStation.StartAlarm(vehicle.GetPlate()); }
+                    if (infraction) { policeStation.StartAlarm(vehicle.GetPlate()); }
+                }
+                else
+                {
+                    Console.WriteLine(WriteMessage($"has no active radar."));
+                }
             }
-            else
-            {
-                Console.WriteLine(WriteMessage($"has no active radar."));
-            }
+            else { Console.WriteLine(WriteMessage("has no associated radar.")); }
         }
 
         public bool IsPatrolling()
@@ -72,11 +76,15 @@
 
         public void PrintRadarHistory()
         {
-            Console.WriteLine(WriteMessage("Report radar speed history:"));
-            foreach (float speed in speedRadar.SpeedHistory)
+            if (speedRadar != null)
             {
-                Console.WriteLine(speed);
+                Console.WriteLine(WriteMessage("Report radar speed history:"));
+                foreach (float speed in speedRadar.SpeedHistory)
+                {
+                    Console.WriteLine(speed);
+                }
             }
+            else { Console.WriteLine(WriteMessage("Can't print radar history because this police car has no associated radar.")); }
         }
     }
 }

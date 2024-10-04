@@ -8,8 +8,8 @@
             City city = new City();
             Taxi taxi1 = city.AddTaxi("0001 AAA");
             Taxi taxi2 = city.AddTaxi("0002 BBB");
-            PoliceCar policeCar1 = city.AddPoliceCar("0001 CNP");
-            PoliceCar policeCar2 = city.AddPoliceCar("0002 CNP");
+            PoliceCar policeCar1 = city.AddPoliceCar("0001 CNP", true);
+            PoliceCar policeCar2 = city.AddPoliceCar("0002 CNP", true);
 
             policeCar1.StartPatrolling();
             policeCar1.UseRadar(taxi1, city.PoliceStation);
