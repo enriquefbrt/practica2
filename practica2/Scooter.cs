@@ -4,7 +4,7 @@
     {
         public static string typeOfVehicle = "Scooter";
 
-        public Scooter() : base(typeOfVehicle, null)
+        public Scooter() : base(typeOfVehicle)
         {
             SetSpeed(25.0f);
         }

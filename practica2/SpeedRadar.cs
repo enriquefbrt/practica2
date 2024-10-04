@@ -17,7 +17,7 @@
 
         public float TriggerRadar(Vehicle vehicle)
         {
-            plate = vehicle.GetPlate();
+            if (vehicle is PlatedVehicle platedVehicle) { plate = platedVehicle.GetPlate(); }
             speed = vehicle.GetSpeed();
             SpeedHistory.Add(speed);
             return speed;
